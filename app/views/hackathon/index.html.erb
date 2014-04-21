@@ -1,0 +1,7 @@
+<p>List of countries</p>
+
+<p>
+<% @countries.each do |country| -%>
+	<%= link_to country, hackathons_map_path(:country => country) %> &nbsp;&nbsp;
+<% end -%>
+</p>
