@@ -1,0 +1,20 @@
+<%if @hackathon.nil? or @hackathon.length==0%>
+	<p>We're sorry, the API did not return Hackathon details for id <%=@chosen_hackathon_id%></p>
+	<p><a href="http://hackerleague.org/api/v1/hackathons/<%=@chosen_hackathon_id%>/hacks.json">Attempted API URL</a> </p>
+<%else%>
+	<p>
+		<img src="#{@hackathon.logo}" width="200"/>
+	</p>
+	<p>
+		<a href="#{@hackathon.external_url}"><%=@hackathon.name%></a>
+	</p>
+	<p>
+		<%=@hackathon.description%>
+	</p>
+	<p>
+		Total hackers : <%=@hackathon.total_hackers%>
+	</p>
+	<p>
+		etc...
+	</p>
+<%end%>

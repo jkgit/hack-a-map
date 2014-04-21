@@ -8,6 +8,11 @@ class HackathonController < ApplicationController
     @countries = @hackathons.collect {|h| standardize_country(h["location"]["country"])}.uniq.sort
   end
   
+  def detail
+    @chosen_hackathon_id = params[:id]
+    @hackathon = JSON.parse(open("http://hackerleague.org/api/v1/hackathons/#{@chosen_hackathon_id}/hacks.json").read)
+  end
+  
   # make an effort to standardize country naming.  for instance australia==Australia and
   # US==USA==United States==United States of America.  this isn't complete obviously,
   # but is a start
@@ -21,6 +26,10 @@ class HackathonController < ApplicationController
     # catch different names for a country, ie US, USA, United States, United States of Ameria
     if (country=="US" or country=="USA" or country=="United States")
       country="United States of America"
+    end
+    
+    if (country=="UK" or country=="England")
+      country="United Kingdom"
     end
     
     return country

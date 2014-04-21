@@ -56,6 +56,7 @@ HackAMap::Application.routes.draw do
   # Note: This route will make all actions in every controller accessible via GET requests.
   # match ':controller(/:action(/:id))(.:format)'
   
+  match '/hackathons/:id/detail' => 'hackathon#detail'
   match '/hackathons/index' => 'hackathon#index'
   match '/hackathons/map' => 'hackathon#map'
   root :to => 'hackathon#index'

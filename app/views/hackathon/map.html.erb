@@ -1,4 +1,4 @@
-Map of Hacks in country <%=@chosen_country%>
+Map of Hackathons in <%=@chosen_country%>
 
 <script type="text/javascript"
       src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCBYJhd0pfw8nUTDS4i0WpnXggE_crBRL0&sensor=false">
@@ -25,7 +25,7 @@ Map of Hacks in country <%=@chosen_country%>
       
       function showDetails(marker, whichMarker) {
       	var hack=hacks[whichMarker];
-      	var data="<img height='70' src='"+hack.logo+"'><p><a href='"+hack.external_url+"'>"+hack.name+"</a></p><p>"+hack.description+"</p>";
+      	var data="<img height='70' src='"+hack.logo+"'><p><a href='/hackathons/"+hack.id+"/detail'>View Details</a></p><p><a href='"+hack.external_url+"'>"+hack.name+"</a></p><p>"+hack.description+"</p>";
 	    var infowindow = new google.maps.InfoWindow({
 	      content: data
 	    });
