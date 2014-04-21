@@ -2,11 +2,15 @@ require 'open-uri'
 require 'json'
     
 class HackathonController < ApplicationController
+  # determine unique and sorted list of countries from the complete list of hackathons
   def index
     @hackathons = JSON.parse(open("http://hackerleague.org/api/v1/hackathons.json").read)
     @countries = @hackathons.collect {|h| standardize_country(h["location"]["country"])}.uniq.sort
   end
   
+  # make an effort to standardize country naming.  for instance australia==Australia and
+  # US==USA==United States==United States of America.  this isn't complete obviously,
+  # but is a start
   def standardize_country(country)
     # remove lead or trailing space
     country=country.strip
@@ -22,17 +26,19 @@ class HackathonController < ApplicationController
     return country
   end
   
+  # return a list of hackathons that match the given country name.  if no country
+  # name given, return all hackathons
   def map
     @chosen_country = nil
     if (!params[:country].blank?)
         @chosen_country=standardize_country(params[:country])
     end
     @hackathons = JSON.parse(open("http://hackerleague.org/api/v1/hackathons.json").read)
-    @hacks = []
+    @filtered_hacks = []
     @hackathons.each do |h|
       country = standardize_country(h["location"]["country"])
       if (@chosen_country.nil?||country==@chosen_country)
-        @hacks.push h
+        @filtered_hacks.push h
       end
     end 
   end
